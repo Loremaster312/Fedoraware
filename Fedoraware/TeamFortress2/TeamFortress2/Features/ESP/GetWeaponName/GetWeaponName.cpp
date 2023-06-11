@@ -314,7 +314,7 @@ const char* WeaponESP::GetWeaponName(int weaponID, int itemIndex, EWeaponType we
 		{
 		case Scout_m_ForceANature:
 		case Scout_m_FestiveForceANature:
-			return "FORCE A NATURE";
+			return "FORCE-A-NATURE";
 		default: return "SCATTERGUN";
 		}
 	case TF_WEAPON_SENTRY_REVENGE:
