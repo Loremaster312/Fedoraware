@@ -220,7 +220,8 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 				int height = h + 1; //don't ask me /shrug
 
 				g_Draw.OutlinedRect(x, y, w, height, drawColor);
-				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, height + 2, Colors::OutlineESP);
+				g_Draw.OutlinedRect(x + 1, y + 1, w - 2, height - 2, Colors::OutlineESP);
+			        g_Draw.OutlinedRect(x - 1, y - 1, w + 2, height + 2, Colors::OutlineESP);
 
 				break;
 			}
@@ -481,7 +482,7 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 						const int kd = kills / deaths;
 						if (kills >= 12 && kd >= 6) //dont just say they have a high kd because they just joined and got a couple kills
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 95, 95, 255 }, ALIGN_DEFAULT, "HIGH K/D [%d]", kd);
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 95, 95, 255 }, ALIGN_DEFAULT, "HIGH K/D [%d/%d]", kills, deaths);
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 					}
@@ -489,12 +490,12 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 					{
 						if (kills >= 12)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 95, 95, 255 }, ALIGN_DEFAULT, "HIGH K/D [%d]", kills);
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 95, 95, 255 }, ALIGN_DEFAULT, "HIGH K/D [%d]", kills); // its just stupid.
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 					}
 				}
-				
+				*/
 				if (Vars::ESP::Players::Conditions::LagComp.Value)
 				{
 					//lagcomp cond, idea from nitro
@@ -543,45 +544,45 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 						}
 						else if (nCond & TFCond_Bonked)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Invuln, ALIGN_DEFAULT, "BONK");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Cond, ALIGN_DEFAULT, "BONK");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						} // no need to show bonk effect if they are ubered, right?
 
 						/* vaccinator effects */
 						if (nCondEx & TFCondEx_BulletCharge)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, pink, ALIGN_DEFAULT, "BULLET CHARGE");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 107, 108, 255 }, ALIGN_DEFAULT, "BULLET CHARGE");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 						if (nCondEx & TFCondEx_ExplosiveCharge)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, pink, ALIGN_DEFAULT, "BLAST CHARGE");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 107, 108, 255 }, ALIGN_DEFAULT, "BLAST CHARGE");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 						if (nCondEx & TFCondEx_FireCharge)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, pink, ALIGN_DEFAULT, "FIRE CHARGE");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 107, 108, 255 }, ALIGN_DEFAULT, "FIRE CHARGE");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 						if (nCondEx & TFCondEx_BulletResistance)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, pink, ALIGN_DEFAULT, "BULLET RESIST");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 107, 108, 255 }, ALIGN_DEFAULT, "BULLET RESIST");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 						if (nCondEx & TFCondEx_ExplosiveResistance)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, pink, ALIGN_DEFAULT, "BLAST RESIST");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 107, 108, 255 }, ALIGN_DEFAULT, "BLAST RESIST");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 						if (nCondEx & TFCondEx_FireResistance)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, pink, ALIGN_DEFAULT, "FIRE RESIST");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 107, 108, 255 }, ALIGN_DEFAULT, "FIRE RESIST");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 
 						if (nCond & TFCond_MegaHeal)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, green, ALIGN_DEFAULT, "MEGAHEAL");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 107, 108, 255 }, ALIGN_DEFAULT, "MEGAHEAL");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 
@@ -599,7 +600,7 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 
 						if (nCond & TFCond_CritCola || nCond & TFCond_NoHealingDamageBuff)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, yellow, ALIGN_DEFAULT, "MINI-CRITS");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Cond, ALIGN_DEFAULT, "MINI-CRITS");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 
@@ -638,19 +639,19 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 					{
 						if (nCond & TFCond_Jarated)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, yellow, ALIGN_DEFAULT, "JARATE");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Cond, ALIGN_DEFAULT, "JARATE");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 
 						if (nCond & TFCond_MarkedForDeath || nCondEx & TFCondEx_MarkedForDeathSilent)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, yellow, ALIGN_DEFAULT, "MARKED");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Cond, ALIGN_DEFAULT, "MARKED");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 
 						if (nCond & TFCond_OnFire)
 						{															//orange
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 239, 129, 90, 255 }, ALIGN_DEFAULT, "BURNING");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Cond, ALIGN_DEFAULT, "BURNING");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 
@@ -712,7 +713,7 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 
 						if (nCond & TFCond_Zoomed)
 						{															//aqua
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 0, 255, 255, 255 }, ALIGN_DEFAULT, "ZOOMED");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Cond, ALIGN_DEFAULT, "ZOOMED");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 
@@ -724,7 +725,7 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 
 						if (nCond & TFCond_Disguising || nCondEx & TFCondEx_DisguisedRemoved || nCond & TFCond_Disguised)
 						{															//gray
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 128, 128, 128, 255 }, ALIGN_DEFAULT, "DISGUISED");
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Cond, ALIGN_DEFAULT, "DISGUISED");
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 					}																				
@@ -839,9 +840,10 @@ void CESP::DrawBuildings(CBaseEntity* pLocal) const
 			{
 			case 1:
 			{
-				h += 1;
+				h += 1; //???? WTF IS THIS GAY SHIT
 
 				g_Draw.OutlinedRect(x, y, w, h, drawColor);
+				g_Draw.OutlinedRect(x + 1, y + 1, w - 2, h - 2, Colors::OutlineESP);
 				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, h + 2, Colors::OutlineESP);
 
 				h -= 1;
@@ -929,7 +931,7 @@ void CESP::DrawBuildings(CBaseEntity* pLocal) const
 						nTextTopOffset += g_Draw.m_vecFonts[FONT_NAME].nTall + g_Draw.m_vecFonts[FONT_NAME].nTall /
 							4;
 						g_Draw.String(FONT_COND, x + w / 2, y - nTextTopOffset, Colors::Cond, ALIGN_CENTERHORIZONTAL,
-							L"Built by: %ls", Utils::ConvertUtf8ToWide(pi.name).data());
+							L"Owner: %ls", Utils::ConvertUtf8ToWide(pi.name).data());
 					}
 				}
 			}
@@ -1092,6 +1094,7 @@ void CESP::DrawWorld() const
 				h += 1;
 
 				g_Draw.OutlinedRect(x, y, w, h, Colors::Health);
+				g_Draw.OutlinedRect(x + 1, y + 1, w - 2, h - 2, Colors::OutlineESP);
 				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, h + 2, Colors::OutlineESP);
 
 				h -= 1;
@@ -1155,8 +1158,8 @@ void CESP::DrawWorld() const
 			{
 				h += 1;
 
-				g_Draw.OutlinedRect(x, y, w, h, Colors::Ammo);
-				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, h + 2, Colors::OutlineESP);
+                                        g_Draw.OutlinedRect(x + 1, y + 1, w - 2, h - 2, Colors::OutlineESP);
+					g_Draw.OutlinedRect(x - 1, y - 1, w + 2, h + 2, Colors::OutlineESP);
 
 				h -= 1;
 				break;
@@ -1258,6 +1261,7 @@ void CESP::DrawWorld() const
 				h += 1;
 
 				g_Draw.OutlinedRect(x, y, w, h, Colors::NPC);
+				g_Draw.OutlinedRect(x + 1, y + 1, w - 2, h - 2, Colors::OutlineESP);
 				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, h + 2, Colors::OutlineESP);
 
 				h -= 1;
@@ -1344,7 +1348,7 @@ void CESP::DrawWorld() const
 				h += 1;
 
 				g_Draw.OutlinedRect(x, y, w, h, Colors::Bomb);
-				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, h + 2, Colors::OutlineESP);
+				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, h + 2, Colors::OutlineESP); // nope not doing it fuck you who the fuck even wants to see these shitty bomb esps on their screen jesus christ god i am not im so fucking raaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagh
 
 				h -= 1;
 				break;
