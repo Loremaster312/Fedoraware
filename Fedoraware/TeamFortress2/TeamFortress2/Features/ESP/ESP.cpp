@@ -840,11 +840,11 @@ void CESP::DrawBuildings(CBaseEntity* pLocal) const
 			{
 			case 1:
 			{
-				h += 1;
+				h += 1; //???? WTF IS THIS GAY SHIT
 
 				g_Draw.OutlinedRect(x, y, w, h, drawColor);
-				g_Draw.OutlinedRect(x + 1, y + 1, w - 2, height - 2, Colors::OutlineESP);
-				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, height + 2, Colors::OutlineESP);
+				g_Draw.OutlinedRect(x + 1, y + 1, w - 2, h - 2, Colors::OutlineESP);
+				g_Draw.OutlinedRect(x - 1, y - 1, w + 2, h + 2, Colors::OutlineESP);
 
 				h -= 1;
 				break;
