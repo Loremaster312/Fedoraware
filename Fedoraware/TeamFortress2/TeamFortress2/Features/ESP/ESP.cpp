@@ -482,15 +482,15 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 						const int kd = kills / deaths;
 						if (kills >= 12 && kd >= 6) //dont just say they have a high kd because they just joined and got a couple kills
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 95, 95, 255 }, ALIGN_DEFAULT, "HIGH K/D [%d/%d]", kills, deaths); //smart money moves $
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 95, 95, 255 }, ALIGN_DEFAULT, "HIGH K/D [%d/%d]", kills, deaths);
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 					}
-					/* else // WTF?????????? why are you making it not show the deaths if their kills are 12 or more????? SHIST STUPID STOP IT
+					else
 					{
 						if (kills >= 12)
 						{
-							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, Colors::Cond, ALIGN_DEFAULT, "HIGH K/D [%d]", kills);
+							g_Draw.String(FONT_ESP_COND, nTextX, y + nTextOffset, { 255, 95, 95, 255 }, ALIGN_DEFAULT, "HIGH K/D [%d]", kills); // its just stupid.
 							nTextOffset += g_Draw.m_vecFonts[FONT_ESP_COND].nTall;
 						}
 					}
