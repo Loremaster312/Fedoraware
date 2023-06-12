@@ -495,7 +495,7 @@ void CESP::DrawPlayers(CBaseEntity* pLocal)
 						}
 					}
 				}
-				*/
+				
 				if (Vars::ESP::Players::Conditions::LagComp.Value)
 				{
 					//lagcomp cond, idea from nitro
