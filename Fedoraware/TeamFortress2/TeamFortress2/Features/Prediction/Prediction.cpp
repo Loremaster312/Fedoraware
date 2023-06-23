@@ -70,7 +70,7 @@ void CEnginePrediction::End(CUserCmd* pCmd)
 		I::GlobalVars->frametime = m_fOldFrameTime;
 		I::GlobalVars->tickcount = m_nOldTickCount;
 
-		pLocal->SetCurrentCmd(nullptr);
+		pLocal->SetCurrentCmd(nullptr)
 
 		*I::RandomSeed = -1;
 	}
