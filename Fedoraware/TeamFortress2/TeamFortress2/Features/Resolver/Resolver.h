@@ -1,56 +1,55 @@
 #pragma once
 #include "../../SDK/SDK.h"
 
-struct ResolveData{
-	//config data
-	bool bEnabled = false;			//	should we resolve this player
+struct ResolveData {
+    
+    bool enabled = false;
 
-	//bruteforce data
-	int iYawIndex = 0;
+    // Bruteforce data
+    int yawIndex = 0;
 
-	//logical data
-	std::pair<int, float> pLastSniperPitch = {0, 0.f};
-	float flPitchNoise = 0.f;		//	noise around sniper dot pitch
-	int iPitchNoiseSteps = 0;
+    // Logical data
+    std::pair<int, float> lastSniperPitch = {0, 0.f};
+    float pitchNoise = 0.f;
+    int pitchNoiseSteps = 0;
 
-	//historical data
-	std::pair<std::pair<int, bool>, Vec3> pLastFireAngles = { { 0, false }, {} };
-	Vec2 vOriginalAngles = {0.f, 0.f};
+    // Historical data
+    std::pair<std::pair<int, bool>, Vec3> lastFireAngles = {{0, false}, {}};
+    Vec2 originalAngles = {0.f, 0.f};
 };
 
-class PResolver
-{
+class PResolver {
 private:
-	//sniper dots
-	void UpdateSniperDots();
-	std::optional<float> GetPitchForSniperDot(CBaseEntity* pEntity);
+    // Sniper dots
+    void updateSniperDots();
+    std::optional<float> getPitchForSniperDot(CBaseEntity* entity);
 
-	//logic
-	std::optional<float> PredictBaseYaw(CBaseEntity* pEntity);
+    // Logic
+    std::optional<float> predictBaseYaw(CBaseEntity* entity);
 
-	//misc
-	bool ShouldRun();
-	bool ShouldRunEntity(CBaseEntity* pEntity);
-	bool KeepOnShot(CBaseEntity* pEntity);
-	bool IsOnShotPitchReliable(const float flPitch);
-	float GetRealPitch(const float flPitch);
-	void SetAngles(const Vec3 vAngles, CBaseEntity* pEntity);
-	int GetPitchMode(CBaseEntity* pEntity);
-	int GetYawMode(CBaseEntity* pEntity);
-	void OnDormancy(CBaseEntity* pEntity);
-	
+    // Misc
+    bool shouldRun();
+    bool shouldRunEntity(CBaseEntity* entity);
+    bool keepOnShot(CBaseEntity* entity);
+    bool isOnShotPitchReliable(const float pitch);
+    float getRealPitch(const float pitch);
+    void setAngles(const Vec3 angles, CBaseEntity* entity);
+    int getPitchMode(CBaseEntity* entity);
+    int getYawMode(CBaseEntity* entity);
+    void onDormancy(CBaseEntity* entity);
 
-	//data
-	std::unordered_map<CBaseEntity*, CBaseEntity*> mSniperDots;
-	std::unordered_map<CBaseEntity*, ResolveData> mResolverData;
-	std::pair<int, std::pair<CBaseEntity*, bool>> pWaiting = {0, {nullptr, false}};
+    // Data
+    std::unordered_map<CBaseEntity*, CBaseEntity*> sniperDots;
+    std::unordered_map<CBaseEntity*, ResolveData> resolverData;
+    std::pair<int, std::pair<CBaseEntity*, bool>> waiting = {0, {nullptr, false}};
+
 public:
-	void Aimbot(CBaseEntity* pEntity, const bool bHeadshot);
-	void FrameStageNotify();
-	void CreateMove();
-	void FXFireBullet(int iIndex, const Vec3 vAngles);
-	void OnPlayerHurt(CGameEvent* pEvent);
-	std::unordered_map<uint32_t, std::pair<int, int>> mResolverMode;	//	pitch, yaw
+    void aimbot(CBaseEntity* entity, const bool headshot);
+    void frameStageNotify();
+    void createMove();
+    void fxFireBullet(int index, const Vec3 angles);
+    void onPlayerHurt(CGameEvent* event);
+    std::unordered_map<uint32_t, std::pair<int, int>> resolverMode;
 };
 
 ADD_FEATURE(PResolver, Resolver)
