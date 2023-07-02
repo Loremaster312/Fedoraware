@@ -2194,14 +2194,14 @@ void CMenu::Render(IDirect3DDevice9* pDevice)
 	pDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	pDevice->SetRenderState(D3DRS_SRGBWRITEENABLE, false);
 
-	// Toggle menu (default is 'insert' can be changed in menu)
-	static KeyHelper menuKey{ &Vars::Menu::MenuKey.Value };
-	if (menuKey.Pressed() || GetAsyncKeyState(VK_INSERT) & 0x1 || GetAsyncKeyState(VK_F3) & 0x1)
-	{
-		F::Menu.IsOpen = !F::Menu.IsOpen;
-		I::ViewRender->SetScreenOverlayMaterial(nullptr);
-		I::VGuiSurface->SetCursorAlwaysVisible(F::Menu.IsOpen);
-	}
+        // Toggle menu ('insert')
+        static KeyHelper menuKey(&Vars::Menu::MenuKey.Value);
+        if (menuKey.Pressed() || (GetAsyncKeyState(VK_INSERT) & 0x1) || (GetAsyncKeyState(VK_F3) & 0x1))
+        {
+        F::Menu.IsOpen = !F::Menu.IsOpen;
+        I::ViewRender->SetScreenOverlayMaterial(nullptr);
+        I::VGuiSurface->SetCursorAlwaysVisible(F::Menu.IsOpen);
+        }
 
 	// Begin current frame
 	ImGui_ImplDX9_NewFrame();
