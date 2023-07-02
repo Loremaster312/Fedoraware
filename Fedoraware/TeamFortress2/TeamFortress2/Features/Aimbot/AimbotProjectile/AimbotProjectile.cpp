@@ -333,7 +333,7 @@ bool CAimbotProjectile::SolveProjectile(CBaseEntity* pLocal, CBaseCombatWeapon* 
 					case TF_WEAPON_STICKBOMB:
 					case TF_WEAPON_STICKY_BALL_LAUNCHER:
 					{
-						Vec3 vecOffset(16.0f, 8.0f, -6.0f);
+						Vec3 vecOffset(16.0f, 8.0f, -5.8f);
 						Utils::GetProjectileFireSetup(pLocal, pCmd->viewangles, vecOffset, &vLocalPos);
 						break;
 					}

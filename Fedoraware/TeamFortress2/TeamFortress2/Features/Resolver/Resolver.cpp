@@ -267,7 +267,7 @@ void PResolver::OnPlayerHurt(CGameEvent* pEvent){
 	if (pVictim == pWaiting.second.first) { 
 		if (pWaiting.second.second && G::WeaponCanHeadShot){	//	should be headshot
 			const bool bCrit = pEvent->GetBool("crit");
-			if (!bCrit) { return; }
+			if (!bCrit) { return;
 		}
 		pWaiting = {0, {nullptr, false}}; 
 	}
