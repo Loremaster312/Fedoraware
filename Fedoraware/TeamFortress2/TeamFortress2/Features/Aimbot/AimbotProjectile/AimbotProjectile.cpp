@@ -3,7 +3,7 @@
 #include "../MovementSimulation/MovementSimulation.h"
 #include "../../Visuals/Visuals.h"
 
-Vec3 CAimbotProjectile::Predictor_t::Extrapolate(float time)
+Vec3 CAimbotProjectile::Predictor_t::Extrapolate(double time)
 {
 	G::LinearPredLine = m_vPosition;
 
@@ -14,7 +14,7 @@ Vec3 CAimbotProjectile::Predictor_t::Extrapolate(float time)
 	}
 	else
 	{
-		vecOut = (m_vPosition + (m_vVelocity * time) - m_vAcceleration * 0.5f * time * time);
+		vecOut = (m_vPosition + (m_vVelocity * time) - m_vAcceleration * 0.5 * time * time);
 	}
 
 	return vecOut;
@@ -30,26 +30,26 @@ bool CAimbotProjectile::GetProjectileInfo(CBaseCombatWeapon* pWeapon, Projectile
 		case TF_WEAPON_PARTICLE_CANNON:
 		{
 			IsBoosted = true;
-			out = { Utils::ATTRIB_HOOK_FLOAT(1100.0f, "mult_projectile_speed", pWeapon), 0.0f };
+			out = { Utils::ATTRIB_HOOK_DOUBLE(1100.0, "mult_projectile_speed", pWeapon), 0.0 };
 			break;
 		}
 
 		case TF_WEAPON_GRENADELAUNCHER:
 		{
 			bool isLochnLoad = G::CurItemDefIndex == Demoman_m_TheLochnLoad;
-			float speed = isLochnLoad ? 1490.0f : 1200.0f;
+			float speed = isLochnLoad ? 1490.0 : 1200.0;
 
 			IsBoosted = true;
-			out = { speed, 0.5f, Utils::ATTRIB_HOOK_FLOAT(3.0f, "fuse_mult", pWeapon) };
+			out = { speed, 0.5, Utils::ATTRIB_HOOK_DOUBLE(3.0, "fuse_mult", pWeapon) };
 			break;
 
 		}
 
 		case TF_WEAPON_PIPEBOMBLAUNCHER:
 		{
-			float charge = (I::GlobalVars->curtime - pWeapon->GetChargeBeginTime());
-			float speed = Math::RemapValClamped(charge, 0.0f, Utils::ATTRIB_HOOK_FLOAT(4.0f, "stickybomb_charge_rate", pWeapon), 900.0f, 2400.0f);
-			float grav_mod = Math::RemapValClamped(charge, 0.0f, Utils::ATTRIB_HOOK_FLOAT(4.0f, "stickybomb_charge_rate", pWeapon), 0.5f, 0.1f);
+			double charge = (I::GlobalVars->curtime - pWeapon->GetChargeBeginTime());
+			double speed = Math::RemapValClamped(charge, 0.0, Utils::ATTRIB_HOOK_FLOAT(4.0, "stickybomb_charge_rate", pWeapon), 900.0, 2400.0);
+			double grav_mod = Math::RemapValClamped(charge, 0.0, Utils::ATTRIB_HOOK_FLOAT(4.0, "stickybomb_charge_rate", pWeapon), 0.5, 0.1);
 
 			out = { speed, grav_mod };
 			break;
@@ -58,28 +58,28 @@ bool CAimbotProjectile::GetProjectileInfo(CBaseCombatWeapon* pWeapon, Projectile
 		case TF_WEAPON_CANNON:
 		{
 			IsBoosted = true;
-			out = { 1454.0f, 0.5f };
+			out = { 1454.0, 0.5 };
 			break;
 		}
 
 		case TF_WEAPON_FLAREGUN:
 		{
-			out = { 2000.0f, 0.2f };
+			out = { 2000.0, 0.2 };
 			break;
 		}
 
 		case TF_WEAPON_CLEAVER:
 		case TF_WEAPON_RAYGUN_REVENGE:
 		{
-			out = { 3000.0f, 0.45f };
+			out = { 3000.0, 0.45 };
 			break;
 		}
 
 		case TF_WEAPON_COMPOUND_BOW:
 		{
-			float charge = (I::GlobalVars->curtime - pWeapon->GetChargeBeginTime());
-			float speed = Math::RemapValClamped(charge, 0.0f, 1.0f, 1800.0f, 2600.0f);
-			float grav_mod = Math::RemapValClamped(charge, 0.0f, 1.0f, 0.5f, 0.1f);
+			double charge = (I::GlobalVars->curtime - pWeapon->GetChargeBeginTime());
+			double speed = Math::RemapValClamped(charge, 0.0, 1.0, 1800.0, 2600.0);
+			double grav_mod = Math::RemapValClamped(charge, 0.0, 1.0, 0.5, 0.1);
 			
 			out = { speed, grav_mod };
 			break;
@@ -87,34 +87,34 @@ bool CAimbotProjectile::GetProjectileInfo(CBaseCombatWeapon* pWeapon, Projectile
 
 		case TF_WEAPON_SYRINGEGUN_MEDIC:
 		{
-			out = { 1000.0f, 0.2f };
+			out = { 1000.0, 0.2 };
 			break;
 		}
 
 		case TF_WEAPON_FLAMETHROWER:
 		{
-			out = { 1000.0f, 0.0f, 0.33f };
+			out = { 1000.0, 0.0, 0.33 };
 			IsFlameThrower = true;
 			break;
 		}
 
 		case TF_WEAPON_FLAME_BALL: //dragon's fury
 		{
-			out = { 3000.0f, 0.0f, 0.1753f };
+			out = { 3000.0, 0.0, 0.1753 };
 			IsFlameThrower = true;
 			break;
 		}
 
 		case TF_WEAPON_RAYGUN:
 		{
-			out = { 1200.0f, 0.0f };
+			out = { 1200.0, 0.0 };
 			break;
 		}
 
 		case TF_WEAPON_CROSSBOW:
 		case TF_WEAPON_SHOTGUN_BUILDING_RESCUE:
 		{
-			out = { 2400.0f, 0.2f };
+			out = { 2400.0, 0.2 };
 			break;
 		}
 	}
@@ -124,11 +124,12 @@ bool CAimbotProjectile::GetProjectileInfo(CBaseCombatWeapon* pWeapon, Projectile
 
 bool CAimbotProjectile::CalcProjAngle(const Vec3& vLocalPos, const Vec3& vTargetPos, const ProjectileInfo_t& projInfo, Solution_t& out)
 {
-	const float fGravity = g_ConVars.sv_gravity->GetFloat() * projInfo.m_flGravity;
+	const double fGravity = g_ConVars.sv_gravity->GetFloat() * projInfo.m_flGravity;
 	const Vec3 vDelta = vTargetPos - vLocalPos;
-	const float fHyp = sqrt(vDelta.x * vDelta.x + vDelta.y * vDelta.y);
-	const float fDist = vDelta.z;
-	const float fVel = projInfo.m_flVelocity;
+	const double fHyp = sqrt(vDelta.x * vDelta.x + vDelta.y * vDelta.y);
+	const double fDist = vDelta.z;
+	const double fVel = projInfo.m_flVelocity;
+	if double = projInfo.M_pVelocity;
 
 	if (!fGravity)
 	{
